@@ -2,3 +2,14 @@ body {
   padding: 10px;
   font-family: sans-serif;
 }
+
+.pics{
+	width: 100%;
+}
+.uniform{
+	overflow: hidden;
+	height: 250px;
+}
+.color2{
+	color: red;
+}

@@ -5,7 +5,7 @@
 <body>
   <div class="container">
     <h1>Welcome to Meteor!</h1>
-
+    {{> addimage}}
     {{> mygallery}}
   </div>
 </body>
@@ -13,15 +13,45 @@
 <template name="mygallery">
   <div class="row">
     {{#each allimages}}
-      <div class="col-4 mb-5">
+      <div class="col-4 mb-5" id= {{_id}}>
         <div class="uniform">
           <img class="pics" src={{path}} alt={{title}}>
         </div>
       <h2>{{title}}</h2>
       <h2>{{desc}}</h2>
-      <i class="color2 fa fa-trash"></i>
+      <i class="color2 fa fa-trash js-delete"></i>
       </div>
     {{/each}}
   </div>
+</template>
+<template name="addimage">
+  <div class="row mb-5 justify-content-around">
+    <div class="col-3">
+       <!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+  Add An Image
+</button>
+    </div>
+  </div>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
 </template>
 

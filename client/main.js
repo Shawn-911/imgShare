@@ -20,9 +20,14 @@ Template.mygallery.helpers({
   },
 });
 
-// Template.hello.events({
-//   'click button'(event, instance) {
-//     // increment the counter when button is clicked
-//     instance.counter.set(instance.counter.get() + 1);
-//   },
-// });
+Template.mygallery.events({
+  'click .js-delete'(event, instance) {
+  	// console.log("deleting");
+    // increment the counter when button is clicked
+    // instance.counter.set(instance.counter.get() + 1);
+    var myId = this._id;
+    $("#"+this._id).fadeOut('slow',function(){
+    	imagesdb.remove({_id:myId});
+    }); 
+  },
+});

@@ -14,3 +14,13 @@ body {
 	color: red;
 	font-size :3em;
 }
+
+.ecolor{
+	color: green;
+	font-size :3em;
+}
+.placeHolder{
+	margin-bottom: 10px;
+	width: 350px;
+	height: 250px;
+}

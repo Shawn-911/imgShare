@@ -16,8 +16,14 @@ import '../lib/collection.js';
 
 Template.mygallery.helpers({
   allimages() {
-    return imagesdb.find();
+    var prevTime = new Date().getTime() -12000;
+    var results = imagesdb.find ({createdon: {$gte:prevTime}}).count();
+    if (results > 0)
+      return imagesdb.find({},{sort:{createdon: -1, ratings: -1}});
+    else
+      return imagesdb.find({},{sort:{ratings: -1,createdon: -1}});
   },
+
 });
 
 Template.mygallery.events({
@@ -43,7 +49,17 @@ Template.mygallery.events({
     $("#editPath").val(ePath);
     $("#editDesc").val(eDesc);
     $(".editHolder").attr("src", ePath);
-  }
+  },
+   "click .rating"(event) {
+        var myId = this.picid;
+        const value = $(event.target).val();
+        console.log(value + " : " +myId);
+        imagesdb.update({_id: myId},
+      {$set:{
+        "ratings": value
+      }}
+    );
+    }
 });
 
 Template.addImage.events({
@@ -65,7 +81,8 @@ Template.addImage.events({
     imagesdb.insert({
       "title": theTitle,
       "path": thePath,
-      "desc": theDesc
+      "desc": theDesc,
+      "createdon" : new Date().getTime()
     });
     // imagesdb.insert({"title": theTitle, "path": thePath, "desc": theDesc});
     console.log("saving...");

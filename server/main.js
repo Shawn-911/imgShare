@@ -10,7 +10,8 @@ Meteor.startup(() => {
   		imagesdb.insert({
   			"path":"img_"+i+".jpg",
   			"title":"title"+i,
-  			"desc":"desc"+i
+  			"desc":"desc"+i,
+        "createdon" : new Date().getTime()
   		});
   	}
   }

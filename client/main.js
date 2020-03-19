@@ -1,5 +1,6 @@
 import { Template } from 'meteor/templating';
 import { ReactiveVar } from 'meteor/reactive-var';
+import { Session } from 'meteor/session';
 import 'meteor/jkuester:blaze-bs4'
 import 'bootstrap'
 import 'bootstrap/dist/css/bootstrap.css' // this is the default BS theme as example
@@ -14,14 +15,35 @@ import '../lib/collection.js';
 //   this.counter = new ReactiveVar(0);
 // });
 
+Session.set("imageLimit",9)
+lastScrollTop = 0;
+$(window).scroll(function(event){if($(window).scrollTop()+$(window).height() >$(document).height()- 100){
+  var scrollTop = $(this).scrollTop();
+
+if (scrollTop > lastScrollTop){
+
+  Session.set("imageLimit",Session.get("imageLimit")+3);
+
+        }
+        lastScrollTop + scrollTop;
+      }
+    });
+
+
+
+
+
+
+
+
 Template.mygallery.helpers({
   allimages() {
     var prevTime = new Date().getTime() -12000;
     var results = imagesdb.find ({createdon: {$gte:prevTime}}).count();
     if (results > 0)
-      return imagesdb.find({},{sort:{createdon: -1, ratings: -1}});
+      return imagesdb.find({}, {sort:{createdon: -1, ratings: -1}, limit: Session.get("imageLimit")});
     else
-      return imagesdb.find({},{sort:{ratings: -1,createdon: -1}});
+      return imagesdb.find({}, {sort:{ratings: -1,createdon: -1}, limit: Session.get("imageLimit")});
   },
 
 });
